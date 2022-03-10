@@ -1,0 +1,9 @@
+.akuBtn {
+    background: darkgrey;
+    border: 2px solid teal;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: .6rem;
+    cursor: pointer;
+
+}
