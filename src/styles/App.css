@@ -11,7 +11,15 @@
   justify-content: space-between; */
   width: 600px;
   background: rgb(221, 127, 127);
+  margin: 5px 20px;
+  padding: 5px;
 
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .post {
@@ -26,4 +34,10 @@
 
 .post__btns {
   display: flex;
+}
+
+.form__main {
+  display: flex;
+  flex-direction: column;
+
 }

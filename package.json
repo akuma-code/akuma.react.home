@@ -1,5 +1,5 @@
 {
-  "name": "akuma.react",
+  "name": "akuma-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -47,6 +47,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/akuma-code/akuma.react.home/issues"
-  },
-  "homepage": "https://github.com/akuma-code/akuma.react.home#readme"
+  }
 }

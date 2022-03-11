@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import PostForm from './components/PostForm'
 import './styles/App.css';
 import PostList from './components/PostList';
 
-function App () {
+function App() {
   const [posts, setPosts] = useState([
-    // { title: "123", body: "123" }
+    {title: "TITLE #1", body: "BODY #1", id: 1},
+    {title: "TITLE #2", body: "BODY #2", id: 2},
+    {title: "TITLE #3", body: "BODY #3", id: 3},
   ])
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
