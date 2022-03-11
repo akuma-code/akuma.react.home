@@ -7,8 +7,6 @@
 .App {
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: space-between; */
   width: 600px;
   background: rgb(221, 127, 127);
   margin: 5px 20px;
@@ -40,4 +38,28 @@
   display: flex;
   flex-direction: column;
 
+}
+
+.remove-btn {
+  margin-right: 0.5rem;
+}
+
+.post-enter {
+  transform: translateX(650px);
+}
+
+.post-enter-active {
+  opacity: 1;
+  transition: all 500ms ease-in;
+  transform: translateX(0px);
+}
+
+.post-exit {
+  opacity: 1;
+}
+
+.post-exit-active {
+  opacity: 0;
+  transform: translateX(-350px);
+  transition: all 500ms ease-in;
 }

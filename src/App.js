@@ -1,80 +1,65 @@
-import React, {useMemo, useState} from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm'
 import PostList from './components/PostList';
-import AkuInput from './components/UI/input/AkuInput';
-import AkuSelect from './components/UI/select/AkuSelect';
+import AkuButton from './components/UI/button/AkuButton';
+import AkuModal from './components/UI/Modal/AkuModal';
+import { usePosts } from './hooks/usePosts';
 import './styles/App.css';
 
 function App() {
   const [posts, setPosts] = useState([
-    {title: "aTITLE #1", body: "3 BODY #1", id: 1},
-    {title: "bTITLE #2", body: "2 BODY #2", id: 2},
-    {title: "cTITLE #3", body: "1 BODY #3", id: 3},
+    // { title: "a 123", body: "3234 BODY #1", id: 1 },
+    // { title: "b 345", body: "2222 BODY #2", id: 2 },
+    // { title: "c 678", body: "1111 BODY #3", id: 3 },
   ])
 
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedSort, setSelectedSort] = useState('')
-
-
-  function getSortedPosts() {
-    console.log('SORTING!');
-    if (selectedSort) {
-      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
-    }
-    return posts
+  async function fetchPosts() {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    setPosts(response.data)
   }
-
+  const [filter, setFilter] = useState({ sort: '', query: '' })
+  const [modal, setModal] = useState(false)
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
+    setModal(false)
   }
 
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id))
   }
-  const sortedPosts = useMemo(() => {
-
-    if (selectedSort) {
-      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
-    }
-    return posts
-  }, [selectedSort, posts])
-
-  const sortedAndSearchedPost = useMemo(() => {
-    return sortedPosts.filter(
-      post => post.title.toLowerCase().includes(searchQuery))
-  }, [searchQuery, sortedPosts]);
+  const sortedAndSearchedPost = usePosts(posts, filter.sort, filter.query)
 
 
-  const sortPosts = (sort) => {
-    setSelectedSort(sort)
-  }
+
+
+
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
-      <hr style={{margin: '15px 0'}}></hr>
-      <div>
-        <AkuInput
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop: 15 }}>
 
-          placeholder='Search Title'
-          value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
-
-        />
-        <AkuSelect
-          value={selectedSort}
-          onChange={sortPosts}
-          defaultValue="sort as"
-          options={[
-            {value: 'title', name: 'as title'},
-            {value: 'body', name: 'as description'},
-          ]}
-
-        />
+        <AkuButton onClick={fetchPosts}>GET POSTS</AkuButton>
+        <AkuButton onClick={() => setModal(true)}>
+          ADD NEW POST
+        </AkuButton>
       </div>
-      <PostList posts={sortedAndSearchedPost} title='AppPosts' remove={removePost} />
+      <AkuModal visible={modal} setVisible={setModal}>
+
+        <PostForm create={createPost} />
+      </AkuModal>
+      <hr style={{ margin: '15px 0' }}></hr>
+      <PostFilter
+        filter={filter}
+        setFilter={setFilter}
+      />
+      <PostList posts={sortedAndSearchedPost} title='СПИСОК ПОСТОВ' remove={removePost} />
     </div>
   );
 }
