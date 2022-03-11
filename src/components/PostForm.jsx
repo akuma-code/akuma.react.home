@@ -17,11 +17,13 @@ const PostForm = ({create}) => {
     return (
         <form className={'form__main'}>
             <AkuInput
+                placeholder='TITLE'
                 value={post.title}
                 onChange={e => setPost({...post, title: e.target.value})}
                 type='text'
             />
             <AkuInput
+                placeholder='Description'
                 value={post.body}
                 onChange={e => setPost({...post, body: e.target.value})}
                 type='text'
