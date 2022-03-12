@@ -18,6 +18,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 }
 
 .post {
@@ -83,4 +84,18 @@
 .page__current {
   background: rgb(175, 16, 16);
   font-weight: bold;
+}
+
+.navbar {
+  height: 70px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  background: lightblue;
+
+}
+
+.navbar__links {
+  margin-right: auto;
 }

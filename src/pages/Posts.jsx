@@ -10,7 +10,7 @@ import Pagination from '../components/UI/pagination/Pagination';
 import { useFetching } from '../hooks/useFetching';
 import { usePosts } from '../hooks/usePosts';
 import '../styles/App.css';
-import { getPageCount, getPagesArray } from '../utils/pages';
+import { getPageCount } from '../utils/pages';
 
 function Posts() {
     const [posts, setPosts] = useState([])
@@ -60,31 +60,29 @@ function Posts() {
 
     return (
         <div className="App">
-            <div style={ { display: 'flex', flexDirection: 'row', marginTop: 15 } }>
-                <AkuButton onClick={ () => fetchPosts(limit, page) }>GET POSTS</AkuButton>
-                <AkuButton onClick={ () => setModal(true) }>
-                    ADD NEW POST
-                </AkuButton>
+            <div style={{ display: 'flex', flexDirection: 'row', marginTop: 15 }}>
+                <AkuButton onClick={() => fetchPosts(limit, page)}>GET POSTS</AkuButton>
+                <AkuButton onClick={() => setModal(true)}>ADD NEW POST</AkuButton>
             </div>
 
 
-            <AkuModal visible={ modal } setVisible={ setModal }>
+            <AkuModal visible={modal} setVisible={setModal}>
 
-                <PostForm create={ createPost } />
+                <PostForm create={createPost} />
             </AkuModal>
 
-            <hr style={ { margin: '15px 0' } }></hr>
+            <hr style={{ margin: '15px 0' }}></hr>
 
 
             <PostFilter
-                filter={ filter }
-                setFilter={ setFilter }
+                filter={filter}
+                setFilter={setFilter}
             />
 
             <Pagination
-                totalPages={ totalPages }
-                page={ page }
-                changePage={ changePage }
+                totalPages={totalPages}
+                page={page}
+                changePage={changePage}
             />
             {/* { postError &&
                 <h1>ERROR!!</h1> } */}
@@ -93,9 +91,9 @@ function Posts() {
 
 
 
-            { isPostLoading
-                ? <div style={ { display: 'flex', justifyContent: 'center', marginTop: 50 } }><Loader /></div>
-                : <PostList posts={ sortedAndSearchedPost } title='СПИСОК ПОСТОВ' remove={ removePost } />
+            {isPostLoading
+                ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
+                : <PostList posts={sortedAndSearchedPost} title='СПИСОК ПОСТОВ' remove={removePost} />
             }
 
         </div>

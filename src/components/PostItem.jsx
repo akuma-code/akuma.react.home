@@ -1,8 +1,11 @@
 import React from 'react';
 import AkuButton from './UI/button/AkuButton';
+import { useNavigate } from 'react-router-dom'
 
 
 const PostItem = (props) => {
+    const router = useNavigate()
+
     return (
         <div className='post'>
             <div className='post__content'>
@@ -12,6 +15,7 @@ const PostItem = (props) => {
                 </div>
             </div>
             <div className='post__btns'>
+                <AkuButton onClick={() => router(`/posts/${props.post.id}`)}>Open</AkuButton>
                 <AkuButton onClick={() => props.remove(props.post)}>Remove</AkuButton>
             </div>
         </div>
