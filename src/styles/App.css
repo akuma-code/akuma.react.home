@@ -63,3 +63,24 @@
   transform: translateX(-350px);
   transition: all 500ms ease-in;
 }
+
+.page__wrapper {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.page {
+  background: darkgrey;
+  border: 2px solid teal;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: .6rem;
+  cursor: pointer;
+}
+
+.page__current {
+  background: rgb(175, 16, 16);
+  font-weight: bold;
+}
