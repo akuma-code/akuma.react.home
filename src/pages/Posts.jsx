@@ -61,7 +61,7 @@ function Posts() {
     return (
         <div className="App">
             <div style={ { display: 'flex', flexDirection: 'row', marginTop: 15 } }>
-                <AkuButton onClick={ fetchPosts }>GET POSTS</AkuButton>
+                <AkuButton onClick={ () => fetchPosts(limit, page) }>GET POSTS</AkuButton>
                 <AkuButton onClick={ () => setModal(true) }>
                     ADD NEW POST
                 </AkuButton>
