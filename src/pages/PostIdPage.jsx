@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import PostService from '../API/PostService'
 import { useFetching } from '../hooks/useFetching'
-import Loader from './UI/Loader/Loader'
+import Loader from '../components/UI/Loader/Loader'
 
 const PostIdPage = () => {
     const params = useParams()
@@ -28,27 +28,28 @@ const PostIdPage = () => {
 
     return (
         <div>
-            {isLoading
+            { isLoading
                 ? <Loader />
-                : <div style={{ fontSize: 30 }}>
-                    {post.id}. <strong >{post.title}</strong>
-                    <div style={{ fontSize: 20 }}
-                    >{post.body}
+                : <div style={ { fontSize: 30 } }>
+                    { post.id }. <strong >{ post.title }</strong>
+                    <div style={ { fontSize: 20 } }
+                    >{ post.body }
                     </div>
                 </div>
             }
-            <h1 style={{ borderBottom: '1px solid black' }}>
+            <h1 style={ { borderBottom: '1px solid black' } }
+            >
                 Comments:
             </h1>
-            {isLoadingC
+            { isLoadingC
                 ? <Loader />
-                : <div style={{ marginTop: 10 }}>
-                    {comments.map(comm =>
-                        <div key={comm.id}>
-                            <h5 style={{ marginTop: 10, borderBottom: '1px solid red' }}>{comm.email}</h5>
-                            <p>{comm.body}</p>
+                : <div style={ { marginTop: 10 } }>
+                    { comments.map(comm =>
+                        <div key={ comm.id }>
+                            <h5 style={ { marginTop: 10, borderBottom: '1px solid red' } }>{ comm.email }</h5>
+                            <p>{ comm.body }</p>
                         </div>
-                    )}
+                    ) }
                 </div>
             }
 
