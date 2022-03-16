@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useHref } from "react-router-dom";
 import PostService from '../API/PostService';
 import PostFilter from '../components/PostFilter';
 import PostForm from '../components/PostForm'
@@ -24,7 +23,7 @@ function Posts() {
 
     const sortedAndSearchedPost = usePosts(posts, filter.sort, filter.query)
     const lastElement = useRef()
-    const observer = useRef()
+    // const observer = useRef()
 
 
 
@@ -32,7 +31,7 @@ function Posts() {
 
     const [fetchPosts, isPostLoading, postError] = useFetching(async (limit = 10, page = 1) => {
         const response = await PostService.getAll(limit, page)
-        setPosts(...posts, response.data)
+        setPosts([...posts, ...response.data])
         const totalCount = response.headers['x-total-count']
         setTotalPages(getPageCount(totalCount, limit))
     })
@@ -67,44 +66,44 @@ function Posts() {
 
     return (
         <div className="App">
-            <div style={ { display: 'flex', flexDirection: 'row', marginTop: 15 } }>
-                <AkuButton onClick={ () => fetchPosts(limit, page) }>GET POSTS</AkuButton>
-                <AkuButton onClick={ () => setModal(true) }>ADD NEW POST</AkuButton>
+            <div style={{ display: 'flex', flexDirection: 'row', marginTop: 15 }}>
+                <AkuButton onClick={() => fetchPosts(limit, page)}>GET POSTS</AkuButton>
+                <AkuButton onClick={() => setModal(true)}>ADD NEW POST</AkuButton>
             </div>
 
 
-            <AkuModal visible={ modal } setVisible={ setModal }>
+            <AkuModal visible={modal} setVisible={setModal}>
 
-                <PostForm create={ createPost } />
+                <PostForm create={createPost} />
             </AkuModal>
 
-            <hr style={ { margin: '15px 0' } }></hr>
+            <hr style={{ margin: '15px 0' }}></hr>
 
 
             <PostFilter
-                filter={ filter }
-                setFilter={ setFilter }
+                filter={filter}
+                setFilter={setFilter}
             />
 
 
-            {/* { postError &&
-                <h1>ERROR!!</h1> } */}
+            {postError &&
+                <h1>ERROR!!</h1>}
+            <Pagination
+                totalPages={totalPages}
+                page={page}
+                changePage={changePage}
+            />
 
-
-            <PostList posts={ sortedAndSearchedPost } title='СПИСОК ПОСТОВ' remove={ removePost } />
-            <div ref={ lastElement } style={ { height: 20, background: 'red' } } />
-            { isPostLoading &&
+            <PostList posts={sortedAndSearchedPost} title='СПИСОК ПОСТОВ' remove={removePost} />
+            <div ref={lastElement} style={{ height: 20, background: 'red' }} />
+            {isPostLoading &&
                 <div
-                    style={ { display: 'flex', justifyContent: 'center', marginTop: 50 } }
+                    style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}
                 >
                     <Loader />
                 </div>
             }
-            <Pagination
-                totalPages={ totalPages }
-                page={ page }
-                changePage={ changePage }
-            />
+
         </div>
     );
 }
